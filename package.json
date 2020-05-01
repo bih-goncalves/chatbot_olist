@@ -1,0 +1,13 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "description": "A NodeJS chatbot to Megahack, Olist challenge",
+  "main": "index.js",
+  "repository": "https://github.com/bih-goncalves/chatbot_olist",
+  "author": "Bianca Gonçalves e Gabriel Gaspar",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
