@@ -18,11 +18,11 @@ services:
   api.backend.dev:
     container_name: api.backend.dev
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile
     restart: unless-stopped
     volumes:
-      - ./backend:/usr/src/app
+      - ./:/usr/src/app
       - node_modules-backend:/usr/src/app/node_modules
     ports:
       - '3333:3333'
