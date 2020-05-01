@@ -1,9 +1,18 @@
 const express = require('express');
+const routes = express.Router();
+
 const chatController = require('./controllers/ChatController');
 const productController = require('./controllers/ProductController');
 const botController = require('./controllers/BotController');
 
-const routes = express.Router();
+// CONEXÃO COM O BANCO DE DADOS
+var MongoClient = require('mongodb').MongoClient;
+const MONGO_URL = "mongodb://localhost:27017/mydb";
+MongoClient.connect(MONGO_URL, function(err, db) {
+    if (err) throw err;
+    console.log("Database created!");
+    db.close();
+  });
 
 // Rotas para o chat
 routes.get('/chat', chatController.teste);
