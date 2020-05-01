@@ -1,0 +1,36 @@
+version: '3.2'
+
+networks:
+  bubble:
+    external: true
+
+services:
+  db.backend.dev:
+    container_name: db.backend.dev
+    image: mongo:4.2
+    volumes:
+      - mongo_dev:/data/db
+    ports:
+      - '27017:27017'
+    networks:
+      - bubble
+
+  api.backend.dev:
+    container_name: api.backend.dev
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - ./backend:/usr/src/app
+      - node_modules-backend:/usr/src/app/node_modules
+    ports:
+      - '3333:3333'
+    networks:
+      - bubble
+    environment:
+      - MONGO_URI=http://db.backend.dev:27017
+
+volumes:
+  mongo_dev:
+  node_modules-backend:
