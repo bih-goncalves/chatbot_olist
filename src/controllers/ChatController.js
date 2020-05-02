@@ -58,8 +58,6 @@ module.exports = {
                 created_at: new Date(),
                 messages: JSON.stringify(newMessages)
             }});
-            // const updatedObjc = {...document, messages: newMessages};
-            // console.log(document);
             response.json({data:"Mensagem Enviada"});
         });
     }
