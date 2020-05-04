@@ -35,7 +35,7 @@ module.exports = {
 
       const result = responses[0].queryResult;
 
-      if (result.intent) {
+      if (result.intent !== 'Default Fallback Intent') {
         console.log(`  Intent: ${result.intent.displayName}`);
         Ml_api.sendAnswerForQuestion(
           `Olá! ${result.fulfillmentText}. Obrigado.`,
