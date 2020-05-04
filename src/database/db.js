@@ -91,6 +91,25 @@ function update(
     }
 }
 
+function count(
+    dbName,
+    dbCollectionName,
+    successCallback,
+    failureCallback
+){
+    MongoClient.connect(MONGO_URL, function(err, dbInstance) {
+        if (err) {
+            console.log(`[MongoDB connection] ERROR: ${err}`);
+            failureCallback(err); // this should be "caught" by the calling function
+        } else {
+            const dbObject = dbInstance.db(dbName);
+            const dbCollection = dbObject.collection(dbCollectionName);
+            const counter = dbCollection.count();
+            successCallback(counter);
+        }
+    });
+}
+
 module.exports = {
     initialize,
     insert,
