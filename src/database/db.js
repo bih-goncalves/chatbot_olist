@@ -68,10 +68,33 @@ function find(
     });
 }
 
+function update(
+    dbName,
+    dbCollectionName,
+    filters = null,
+    options = null,
+    successCallback,
+    failureCallback
+){
+    if(options != null && filters != null){
+        MongoClient.connect(MONGO_URL, function(err, dbInstance) {
+            if (err) {
+                console.log(`[MongoDB connection] ERROR: ${err}`);
+                failureCallback(err); // this should be "caught" by the calling function
+            } else {
+                const dbObject = dbInstance.db(dbName);
+                const dbCollection = dbObject.collection(dbCollectionName);
+                dbCollection.updateOne(filters, options);
+                successCallback();
+            }
+        });
+    }
+}
 
 
 module.exports = {
     initialize,
     insert,
-    find
+    find,
+    update
 };
