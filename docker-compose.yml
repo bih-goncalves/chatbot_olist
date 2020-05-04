@@ -17,6 +17,8 @@ services:
 
   api.backend.dev:
     container_name: api.backend.dev
+    env_file:
+      - .env
     build:
       context: .
       dockerfile: Dockerfile
