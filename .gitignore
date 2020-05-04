@@ -1,6 +1,9 @@
 # dependencies
 /node_modules/
 
+# Sensitive Data
+/API_Key.js
+
 # production
 /build
 

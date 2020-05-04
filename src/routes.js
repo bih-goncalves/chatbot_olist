@@ -4,6 +4,7 @@ const routes = express.Router();
 const chatController = require('./controllers/ChatController');
 const productController = require('./controllers/ProductController');
 const botController = require('./controllers/BotController');
+const sellerController = require('./controllers/SellerController');
 
 
 // CONEXÃO COM O BANCO DE DADOS
@@ -32,6 +33,10 @@ routes.post('/product', (request, response) => productController.insertProduct(r
 
 // Rotas para a resposta do bot
 routes.get('/bot/answer', botController.getAnswerForQuestion);
+
+// Rota para responder o cliente após o vendedor ter respondido uma pergunta que antes era desconhecida
+routes.post('/seller/newquestion', (request, response) => sellerController.sendNewQuestionToSeller(request, response,db));
+routes.post('/seller/newanswer', (request, response) => sellerController.sendNewAnswerToClient(request, response,db));
 
 module.exports = routes;
 
