@@ -6,7 +6,7 @@ module.exports = {
         return response.json({data: "Helllo world!"});
     },
 
-    listChatForId(request, response, db){
+    listChatForId(request, response){
         const {id} = request.params;
         dbConnection.find('mydb','chat',{chatId:id},{_id:0},(documents) => { // Success
             console.log("documento encontrado com sucesso!");
@@ -16,7 +16,7 @@ module.exports = {
         })
     },
 
-    async createChat(request, response, db){
+    async createChat(request, response){
         const {client="Fulano"} = request.body;
         const id = `${client}-${Date.now()}`
         const chat = {
@@ -33,7 +33,7 @@ module.exports = {
         response.json({id:id});
     },
 
-    async saveMessage(request, response, db){
+    async saveMessage(request, response){
         const {id} = request.params;
         const {message} = request.body;
         const message_id = `${id}/${Date.now()}`;

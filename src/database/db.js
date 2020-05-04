@@ -91,7 +91,6 @@ function update(
     }
 }
 
-
 module.exports = {
     initialize,
     insert,
