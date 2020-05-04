@@ -35,17 +35,17 @@ module.exports = {
 
       const result = responses[0].queryResult;
 
-      if (result.intent !== 'Default Fallback Intent') {
+      if (
+        result.intent &&
+        result.intent.displayName !== 'Default Fallback Intent'
+      ) {
         console.log(`  Intent: ${result.intent.displayName}`);
         Ml_api.sendAnswerForQuestion(
           `Olá! ${result.fulfillmentText}. Obrigado.`,
           id,
         );
       } else {
-        Ml_api.sendAnswerForQuestion(
-          'Olá, assim que possível lhe responderei. Obrigado.',
-          id,
-        );
+        Ml_api.notifyOlistAPI();
       }
     }
     response.status(200).send();
