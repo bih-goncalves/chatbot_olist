@@ -46,43 +46,72 @@ module.exports = {
         console.log(id)
         const {message} = request.body;
         const message_id = `${id}/${Date.now()}`;
-        try{
-            const queryResult = await db.collection('chat').find({chatId:id});
-            queryResult.toArray( async (error, documents) => {
-                if(error){throw error}
-                let newMessages = []
-                if(documents[0]["messages"].length){
-                    const content = JSON.parse(documents[0]["messages"]);
-                    newMessages = [...content,{
-                        id: message_id,
-                        from: "client",
-                        date: Date(),
-                        text: message
-                    }]
-                }else{
-                    newMessages = [{
-                        id: message_id,
-                        from: "client",
-                        date: Date(),
-                        text: message
-                    }]
-                }
-                try{
-                    await db.collection('chat').update({chatId:id},{
-                        $set:{
-                            created_at: new Date(),
-                            messages: JSON.stringify(newMessages)
-                    }});
-                }catch(err){
-                    console.log(erro.stack);
-                }
-                
-                response.json({data:"Mensagem Enviada"});
-            });
+        dbConnection.find('mydb','chat',{chatId:id},null,(documents)=>{ // Success
+            console.log("Mensagem encontrada com sucesso!");
+            let newMessages = []
+            if(documents[0]["messages"].length){
+                const content = JSON.parse(documents[0]["messages"]);
+                newMessages = [...content,{
+                    id: message_id,
+                    from: "client",
+                    date: Date(),
+                    text: message
+                }]
+            }else{
+                newMessages = [{
+                    id: message_id,
+                    from: "client",
+                    date: Date(),
+                    text: message
+                }]
+            }
 
-        }catch(err){
-            console.log(err.stack);
-        }
+
+
+
+
+            
+        }, (error) => { // Failure
+            console.log("houve um erro no método find...");
+        });
+        response.json({data:"Mensagem Enviada"});
+        // try{
+        //     const queryResult = await db.collection('chat').find({chatId:id});
+        //     queryResult.toArray( async (error, documents) => {
+        //         if(error){throw error}
+        //         let newMessages = []
+        //         if(documents[0]["messages"].length){
+        //             const content = JSON.parse(documents[0]["messages"]);
+        //             newMessages = [...content,{
+        //                 id: message_id,
+        //                 from: "client",
+        //                 date: Date(),
+        //                 text: message
+        //             }]
+        //         }else{
+        //             newMessages = [{
+        //                 id: message_id,
+        //                 from: "client",
+        //                 date: Date(),
+        //                 text: message
+        //             }]
+        //         }
+        //         try{
+        //             await db.collection('chat').update({chatId:id},{
+        //                 $set:{
+        //                     created_at: new Date(),
+        //                     messages: JSON.stringify(newMessages)
+        //             }});
+        //         }catch(err){
+        //             console.log(erro.stack);
+        //         }
+                
+        //         response.json({data:"Mensagem Enviada"});
+        //     });
+
+        // }catch(err){
+        //     console.log(err.stack);
+        // }
         // db.collection('chat').find({chatId:id}).toArray((error, documents) => {
         //     if(error){throw error}
         //     let newMessages = []
