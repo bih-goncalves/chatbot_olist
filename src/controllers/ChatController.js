@@ -8,10 +8,12 @@ module.exports = {
 
     listChatForId(request, response, db){
         const {id} = request.params;
-        db.collection('chat').find({chatId: id},{_id:0}).toArray((error, documents)=> {
-            if(error) {throw error}
+        dbConnection.find('mydb','chat',{chatId:id},{_id:0},(documents) => { // Success
+            console.log("documento encontrado com sucesso!");
             response.json({createdAt:documents[0]["created_at"] ,clientName: documents[0]["clientName"],messages: documents[0]["messages"]});
-        });
+        }, (error) => {
+            console.log("Houve um erro no método find...")
+        })
     },
 
     async createChat(request, response, db){
