@@ -1,7 +1,18 @@
 const {MongoClient} = require('mongodb');
-const sensitiveData = require('../../API_Key');
 
-const MONGO_URL = `mongodb+srv://${sensitiveData.MONGO_LOGIN}:${sensitiveData.MONGO_SENHA}@mongodbolist-kpk1u.gcp.mongodb.net/test?retryWrites=true&w=majority`;
+let login_mongo = null;
+let senha_mongo = null;
+
+// For development
+// const sensitiveData = require('../../API_Key');
+// login_mongo = sensitiveData.MONGO_LOGIN;
+// senha_mongo = sensitiveData.MONGO_SENHA;
+
+// For production
+login_mongo = process.env.MONGO_LOGIN;
+senha_mongo = process.env.MONGO_SENHA;
+
+const MONGO_URL = `mongodb+srv://${login_mongo}:${senha_mongo}@mongodbolist-kpk1u.gcp.mongodb.net/test?retryWrites=true&w=majority`;
 
 function initialize(
     dbName,
