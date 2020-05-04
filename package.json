@@ -12,6 +12,7 @@
   "private": false,
   "dependencies": {
     "@sendgrid/mail": "^7.1.0",
+    "axios": "^0.19.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongodb": "^3.5.7",

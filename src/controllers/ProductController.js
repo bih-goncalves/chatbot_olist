@@ -1,6 +1,10 @@
+const dbConnection = require('../database/db');
+
+// ESSAS FUNÇÔES AINDA PRECISAM SER INTEGRADAS AO ATLAS
+// SÃO APENAS MOCK PARA O FRONT POR ISSO DEIXEI PRA LÀ POR ENQUANTO
 module.exports = {
     
-    listProducts(request, response, db){
+    listProducts(request, response){
         const {page = 1, number_per_page = 10} = request.query;
         const total_products = db.collection('products').count();
         db.collection('products')
@@ -14,7 +18,7 @@ module.exports = {
             });
     },
 
-    getProduct(request, response, db){
+    getProduct(request, response){
         const {id} = request.params;
         db.collection('products').find({product_id: id},{_id:0}).toArray((error, documents) => {
             if (error) throw error;
@@ -22,7 +26,7 @@ module.exports = {
         });
     },
 
-    insertProduct(request, response, db){
+    insertProduct(request, response){
         const {name, price, image_url, description, codeIdentifier} = request.body;
         const product_id = `${codeIdentifier}-${Date.now()}`;
         const data = {
