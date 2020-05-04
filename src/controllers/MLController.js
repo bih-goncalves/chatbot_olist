@@ -39,7 +39,7 @@ module.exports = {
       if (result.intent) {
         console.log(`  Intent: ${result.intent.displayName}`);
         Ml_api.sendAnswerForQuestion(
-          `Olá, ${result.intent.displayName}. Obrigado.`,
+          `Olá! ${result.intent.displayName}. Obrigado.`,
           id,
         );
       } else {
