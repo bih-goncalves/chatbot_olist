@@ -5,6 +5,7 @@ const chatController = require('./controllers/ChatController');
 const productController = require('./controllers/ProductController');
 const botController = require('./controllers/BotController');
 const sellerController = require('./controllers/SellerController');
+const mLController = require('./controllers/MLController');
 
 // Rotas para o chat
 routes.get('/chat', chatController.teste);
@@ -24,5 +25,7 @@ routes.get('/bot/answer', botController.getAnswerForQuestion);
 routes.post('/seller/newquestion', (request, response) => sellerController.sendNewQuestionToSeller(request, response));
 routes.post('/seller/newanswer', (request, response) => sellerController.sendNewAnswerToClient(request, response));
 
+// Rota de notificação da API do mercado livre
+routes.post('/ml/notifications', (request, response) => mLController.handleMLNotification(request, response));
 module.exports = routes;
 
