@@ -16,17 +16,15 @@ module.exports = {
       // Create a new session
       const sessionClient = new dialogflow.SessionsClient();
       const sessionPath = sessionClient.sessionPath(projectId, sessionId);
-      console.log(resource);
-      const { id, question } = await Ml_api.getQuestionFromML(resource);
-      console.log(id);
-      console.log('Pergunta: ' + question);
+      const { id, text } = await Ml_api.getQuestionFromML(resource);
+      console.log('Pergunta: ' + text);
 
       const call = {
         session: sessionPath,
         queryInput: {
           text: {
             // The query to send to the dialogflow agent
-            text: question,
+            text: text,
             // The language used by the client (en-US)
             languageCode: 'pt-BR',
           },
