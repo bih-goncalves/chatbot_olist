@@ -12,7 +12,7 @@ async function getQuestionFromML(resourceURL){
 }
 
 async function sendAnswerForQuestion(answer, questionId){
-    const url = `${ML_URLBASE}/answers?access_token=${ACCESS_TOKEN}"`;
+    const url = `${ML_URLBASE}/answers?access_token=${ACCESS_TOKEN}`;
     axios.post(url, {
         "question_id": questionId,
         "text": answer

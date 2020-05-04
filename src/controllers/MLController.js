@@ -9,6 +9,7 @@ module.exports = {
             console.log("CHEGOU NOTIFICAÇÃO DE PERGUNTA NO MERCADO LIVRE!");
             console.log("Respondendo...")
             const {id,question} = await Ml_api.getQuestionFromML(resource);
+            console.log("Pergunta: " + question);
             //----------------------------------------
             // Envia a pergunta para o BOT
             //----------------------------------------
